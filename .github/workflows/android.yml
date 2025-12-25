@@ -15,7 +15,12 @@ jobs:
       - name: Install deps
         run: |
           sudo apt update
-          sudo apt install -y git python3 clang lld ninja-build cmake pkg-config default-jdk nodejs npm
+          sudo apt install -y git python3 clang lld ninja-build cmake pkg-config default-jdk
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.11.1'
 
       - name: Install depot_tools
         run: |
@@ -27,7 +32,6 @@ jobs:
           npm install
           npm run init
           npm run sync
-
 
       - name: Generate build files
         run: |
@@ -42,4 +46,3 @@ jobs:
         with:
           name: brave-android-apk
           path: out/android/apks/*.apk
-
