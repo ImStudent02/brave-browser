@@ -1,0 +1,42 @@
+name: Brave Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install deps
+        run: |
+          sudo apt update
+          sudo apt install -y git python3 clang lld ninja-build cmake pkg-config default-jdk nodejs npm
+
+      - name: Install depot_tools
+        run: |
+          git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+          echo "$PWD/depot_tools" >> $GITHUB_PATH
+
+      - name: Sync Brave
+        run: |
+          npm install
+          npm run sync
+
+      - name: Generate build files
+        run: |
+          gn gen out/android --args='target_os="android" target_cpu="arm64" is_debug=true'
+
+      - name: Build APK
+        run: |
+          ninja -C out/android chrome_public_apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: brave-android-apk
+          path: out/android/apks/*.apk
