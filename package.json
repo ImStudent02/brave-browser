@@ -43,11 +43,12 @@
   },
   "config": {
     "projects": {
-      "brave-core": {
-        "dir": "src/brave",
-        "branch": "master",
-        "repository": {
-          "url": "https://github.com/brave/brave-core.git"
+        "brave-core": {
+          "dir": "src/brave",
+          "branch": "feature/tor-private-window-android",
+          "repository": {
+            "url": "https://github.com/ImStudent02/brave-core.git"
+          }
         }
       }
     }
