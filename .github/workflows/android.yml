@@ -36,7 +36,8 @@ jobs:
           ninja -C out/android chrome_public_apk
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: brave-android-apk
           path: out/android/apks/*.apk
+
