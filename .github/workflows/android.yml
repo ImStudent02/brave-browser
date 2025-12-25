@@ -22,10 +22,12 @@ jobs:
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           echo "$PWD/depot_tools" >> $GITHUB_PATH
 
-      - name: Sync Brave
+      - name: Init & Sync Brave
         run: |
           npm install
+          npm run init
           npm run sync
+
 
       - name: Generate build files
         run: |
